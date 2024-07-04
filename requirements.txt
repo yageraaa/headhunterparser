@@ -1,0 +1,7 @@
+requests
+psycopg2-binary  
+pyTelegramBotAPI 
+unittest2
+schedule
+pandas
+  

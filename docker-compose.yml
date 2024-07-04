@@ -1,0 +1,53 @@
+version: '3.7'
+services:
+  parser:
+    build: 
+      context: .
+      dockerfile: Dockerfile.parser
+    volumes:
+      - ./data:/app/data
+    networks:
+      - app-network
+
+  bot_parser:
+    build: 
+      context: .
+      dockerfile: Dockerfile.bot_parser
+    volumes:
+      - ./data:/app/data
+    networks:
+      - app-network
+
+  test_parser:
+    build: 
+      context: .
+      dockerfile: Dockerfile.test_parser
+    networks:
+      - app-network
+
+  test_bot_parser:
+    build: 
+      context: .
+      dockerfile: Dockerfile.test_bot_parser
+    networks:
+      - app-network
+
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: devdb
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
